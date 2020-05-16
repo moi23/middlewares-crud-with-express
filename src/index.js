@@ -22,8 +22,26 @@ app.use(express.json());
  *
  */
 
+/**
+ * Middleware:
+ *
+ * Interceptador de requisições que pode interromper a requisição
+ * ou alterar os dados da requisição
+ */
+
 // Memoria/ Estado
 const projects = [];
+
+//Example - Middleware
+function logRequest(request, response, next) {
+  const { method, url } = request;
+  const logLabel = `[${method.toUpperCase()}] ${url}`;
+  console.log(logLabel);
+
+  return next(); // chamando o próximo middleware
+}
+//chamando o Middleware
+app.use(logRequest);
 
 // LISTAR APENAS
 app.get("/projects", (request, response) => {
